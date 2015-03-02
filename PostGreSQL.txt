@@ -1,6 +1,10 @@
 
 	PostgreSQL
 	
+	History (http://2ndquadrant.com/en/postgresql/postgresql-story/)
+	Books (http://2ndquadrant.com/en/books/)
+	Sponsors (RedHat, EnterpriseDB, 2ndQuadrent, Heroku, HP, Skype and Google) 
+			 (http://www.postgresql.org/about/sponsors/)
 	About (http://www.postgresql.org/about/)
 
 	- PostgreSQL is a powerful, open source object-relational database system.
@@ -10,6 +14,7 @@
 	- It includes most SQL:2008 data types, including 
 	  INTEGER, NUMERIC, BOOLEAN, CHAR, VARCHAR, DATE, INTERVAL, and TIMESTAMP. 
 	- It also supports storage of binary large objects, including pictures, sounds, or video
+	- The PostgreSQL project aims to fully support a major release for five years.
 	
 	- There are active PostgreSQL systems in production environments that manage in excess of 4 
 	  terabytes of data

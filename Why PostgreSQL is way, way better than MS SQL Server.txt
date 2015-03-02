@@ -1,0 +1,81 @@
+
+	Why PostgreSQL is way, way better than MS SQL Server
+	
+	CSV
+	
+	- CSV is the de facto standard way of moving structured (i.e. tabular) data around. All RDBMSes 
+	  can dump data into proprietary formats that nothing else can read, which is fine for backups, 
+	  replication and the like, but no use at all for migrating data from system X to system Y
+	  
+	- ostgreSQL's CSV support is top notch. The COPY TO and COPY FROM commands support the spec 
+	  outlined in RFC4180 (which is the closest thing there is to an official CSV standard) as well 
+	  as a multitude of common and not-so-common variants and dialects. These commands are fast 
+	  and robust. When an error occurs, they give helpful error messages. Importantly, they will 
+	  not silently corrupt, misunderstand or alter data. If PostgreSQL says your import worked, 
+	  then it worked properly. The slightest whiff of a problem and it abandons the import and 
+	  throws a helpful error message.
+
+     (This may sound fussy or inconvenient, but it is actually an example of a well-established 
+	  design principle. It makes sense: would you rather find out your import went wrong now, or 
+	  a month from now when your client complains that your results are off?)
+	  
+	  MS SQL Server can neither import nor export CSV
+	  
+	Ergonomics (http://www.pg-versus-ms.com/)
+	
+	- PostgreSQL supports DROP TABLE IF EXISTS, which is the smart and obvious way of saying 
+	  "if this table doesn't exist, do nothing, but if it does, get rid of it". Something like this:
+	  
+		DROP TABLE IF EXISTS my_table;
+	  
+      Here's how you have to do it in MS SQL Server:
+	  (Yes, it's only one extra line of code, but notice the mysterious second parameter to the 
+	   OBJECT_ID function. You need to replace that with N'V' to drop a view. It's N'P' for a 
+	   stored procedure.)
+	  
+		IF OBJECT_ID (N'dbo.some_table', N'U') IS NOT NULL
+		DROP TABLE dbo.some_other_table;
+		
+	- PostgreSQL supports DROP SCHEMA CASCADE, which drops a schema and all the database objects 
+	  inside it. This is very, very important for a robust analytics delivery methodology, where 
+	  tear-down-and-rebuild is the underlying principle of repeatable, auditable, collaborative 
+	  analytics work.
+
+	  There is no such facility in MS SQL Server. You have to drop all the objects in the schema 
+	  manually, and in the right order, because if you try to drop an object on which another object 
+	  depends, MS SQL Server simply throws an error. This gives an idea of how cumbersome this 
+	  process can be.
+	  
+	  NB You cannot declare variables in PostgreSQL
+	  
+	You can run PostgreSQL in Linux, BSD etc. (and, of course, Windows)
+	
+	- Unix systems dominate the server, cloud services world, super computers and for good reason 
+	the are written by techies for techies. They trade off fancy user interfaces for enormous poser 
+	and flexibility.
+	
+    Procedural language features
+	
+	- All you to use PL/PGSQL(Its own language) to write procedures but also allows the use of 
+	  Python, Perl, Java, PHP and an extension called PL/V8 allows the use of JavaScript, this 
+	  extension also supports global(i.e. cross-function call) state, allowing the user to selectively
+	  cache data in RAM for fast random access.
+	  
+	  Suppose you need to use 100,000 rows of data from table A on each of 1,000,000 rows of data 
+	  from table B. In traditional SQL, you either need to join these tables (resulting in a 100bn 
+	  row intermediate table, which will kill any but the most immense server) or do something akin 
+	  to a scalar subquery (or, worse, cursor-based nested loops), resulting in crippling I/O load 
+	  if the query planner doesn't read your intentions properly. In PL/V8 you simply cache table 
+	  A in memory and run a function on each of the rows of table B – in effect giving you 
+	  RAM-quality access (negligible latency and random access penalty; no non-volatile I/O load) 
+	  to the 100k-row table
+	
+	Native regular expression support
+	
+	- Regular expressons (regexen or regexes) are as fundamental to analytics work as 
+	  arithmetic – they are the first choice (and often only choice) for a huge variety of text 
+	  processing tasks. A data analytics tool without regex support is like a bicycle without a 
+	  saddle – you can still use it, but it's painful.
+
+	
+	
