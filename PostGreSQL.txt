@@ -1,6 +1,8 @@
 
 	PostgreSQL
 	
+	About
+
 	- PostgreSQL is a powerful, open source object-relational database system.
 	- To date over 15 year of active development
 	- It runs on all major operating systems
@@ -8,7 +10,8 @@
 	  INTEGER, NUMERIC, BOOLEAN, CHAR, VARCHAR, DATE, INTERVAL, and TIMESTAMP. 
 	- It also supports storage of binary large objects, including pictures, sounds, or video
 	
-	- There are active PostgreSQL systems in production environments that manage in excess of 4 terabytes of data
+	- There are active PostgreSQL systems in production environments that manage in excess of 4 
+	  terabytes of data
 	
 	  Limit	                     Value
 	  Maximum Database Size	     Unlimited
@@ -21,38 +24,94 @@
 	  
 	- It has full support for subqueries (including subselects in the FROM clause)
 	
-	- Data integrity features include (compound) primary keys, foreign keys with restricting and cascading 
-	  updates/deletes, check constraints, unique constraints, and not null constraints.
+	- Data integrity features include (compound) primary keys, foreign keys with restricting and 
+	  cascading updates/deletes, check constraints, unique constraints, and not null constraints.
 	  
-	- It also has a host of extensions and advanced features. Among the conveniences are auto-increment columns through sequences,
-	  and LIMIT/OFFSET allowing the return of partial result sets. PostgreSQL supports compound, unique, partial, and functional 
-	  indexes which can use any of its B-tree, R-tree, hash, or GiST storage methods.
+	- It also has a host of extensions and advanced features. Among the conveniences are 
+	  auto-increment columns through sequences,and LIMIT/OFFSET allowing the return of partial 
+	  result sets. PostgreSQL supports compound, unique, partial, and functional indexes which can 
+	  use any of its B-tree, R-tree, hash, or GiST storage methods.
 	  
-	- Other advanced features include table inheritance, a rules systems, and database events. Table inheritance puts an object 
-	  oriented slant on table creation, allowing database designers to derive new tables from other tables, treating them as base 
-	  classes. Even better, PostgreSQL supports both single and multiple inheritance in this manner.
+	- Other advanced features include table inheritance, a rules systems, and database events. 
+	  Table inheritance puts an object oriented slant on table creation, allowing database designers
+	  to derive new tables from other tables, treating them as base classes. Even better, PostgreSQL
+	  supports both single and multiple inheritance in this manner.
 	  
-	- The rules system, also called the query rewrite system, allows the database designer to create rules which identify specific 
-	  operations for a given table or view, and dynamically transform them into alternate operations when they are processed.
-
-	- The events system is an interprocess communication system in which messages and events can be transmitted between clients 
-	  using the LISTEN and NOTIFY commands, allowing both simple peer to peer communication and advanced coordination on database 
-	  events. Since notifications can be issued from triggers and stored procedures, PostgreSQL clients can monitor database events 
+	- The rules system, also called the query rewrite system, allows the database designer to create
+   	  rules which identify specific operations for a given table or view, and dynamically transform 
+	  them into alternate operations when they are processed.
+	
+	- The events system is an interprocess communication system in which messages and events can be 
+	  transmitted between clients using the LISTEN and NOTIFY commands, allowing both simple peer 
+	  to peer communication and advanced coordination on database events. Since notifications can 
+	  be issued from triggers and stored procedures, PostgreSQL clients can monitor database events 
 	  such as table updates, inserts, or deletes as they happen.
 	  
-	- PostgreSQL runs stored procedures in more than a dozen programming languages, including Java, Perl, Python, Ruby, Tcl, C/C++, 
-	  and its own PL/pgSQL, which is similar to Oracle's PL/SQL. Included with its standard function library are hundreds of built-in 
-	  functions that range from basic math and string operations to cryptography
+	- PostgreSQL runs stored procedures in more than a dozen programming languages, including Java, 
+	  Perl, Python, Ruby, Tcl, C/C++, and its own PL/pgSQL, which is similar to Oracle's PL/SQL. 
+	  Included with its standard function library are hundreds of built-in functions that range 
+	  from basic math and string operations to cryptography
 	  
-	- Triggers and stored procedures can be written in C and loaded into the database as a library, allowing great flexibility in extending its capabilities
+	- Triggers and stored procedures can be written in C and loaded into the database as a library, 
+	  allowing great flexibility in extending its capabilities
 	
-	- PostgreSQL includes a framework that allows developers to define and create their own custom data types along with supporting 
-	  functions and operators that define their behavior. As a result, a host of advanced data types have been created that range from geometric 
-	  and spatial primitives to network addresses to even ISBN/ISSN (International Standard Book Number/International Standard Serial Number) 
-	  data types, all of which can be optionally added to the system.
+	- PostgreSQL includes a framework that allows developers to define and create their own custom 
+	  data types along with supporting functions and operators that define their behavior. As a 
+	  result, a host of advanced data types have been created that range from geometric and spatial 
+	  primitives to network addresses to even ISBN/ISSN (International Standard Book 
+	  Number/International Standard Serial Number) data types, all of which can be optionally 
+	  added to the system.
 	  
-	- Best of all, PostgreSQL's source code is available under a liberal open source license: the PostgreSQL License. This license gives you the 
-	  freedom to use, modify and distribute PostgreSQL in any form you like, open or closed source. Any modifications, enhancements, 
-	  or changes you make are yours to do with as you please. As such, PostgreSQL is not only a powerful database system capable of 
-	  the enterprise, it is a development platform upon which to develop in-house, web, or commercial software products that require 
-	  a capable RDBMS
+	- Best of all, PostgreSQL's source code is available under a liberal open source license: the 
+	  PostgreSQL License. This license gives you the freedom to use, modify and distribute 
+	  PostgreSQL in any form you like, open or closed source. Any modifications, enhancements,or 
+	  changes you make are yours to do with as you please. As such, PostgreSQL is not only a 
+	  powerful database system capable of the enterprise, it is a development platform upon which 
+	  to develop in-house, web, or commercial software products that require a capable RDBMS
+   
+	Immunity to over-deployment
+	
+	- Over-deployment is what some proprietary database vendors regard as their #1 licence 
+	  compliance problem.  With PostgreSQL, no-one can sue you for breaking licensing agreements, 
+	  as there is no associated licensing cost for the software.
+
+	  This has several additional advantages:
+
+		<> More profitable business models with wide-scale deployment.
+		<> No possibility of being audited for license compliance at any stage.
+		<> Flexibility to do concept research and trial deployments without needing to include 
+		   additional licensing costs.
+		   
+    Significant saving on staffing costs
+
+	- Our software has been designed and created to have much lower maintenance and tuning 
+	  requirements than the leading proprietary databases, yet still retain all of the features, 
+	  stability, and performance.
+
+	- In addition to this, our training programs are generally regarded as being far more cost 
+	  effective, manageable, and practical in the real world than that of the leading proprietary 
+	  database vendors.
+		
+	Legendary reliability and stability
+
+	- Unlike many proprietary databases, it is extremely common for companies to report that 
+	  PostgreSQL has never, ever crashed for them in several years of high activity operation.  
+	  Not even once.  It just works.
+	  
+	Extensible
+
+	- The source code is available to all at no charge.  If your staff have a need to customise 
+	  or extend PostgreSQL in any way then they are able to do so with a minimum of effort, and 
+	  with no attached costs.  This is complemented by the community of PostgreSQL professionals 
+	  and enthusiasts around the globe that also actively extend PostgreSQL on a daily basis.
+	  
+	Designed for high volume environments
+
+	- We use a multiple row data storage strategy called MVCC to make PostgreSQL extremely 
+	  responsive in high volume environments.  The leading proprietary database vendor uses this 
+	  technology as well, for the same reasons.
+	  
+	GUI database design
+	- PgAdmin III
+	  
+	
