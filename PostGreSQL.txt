@@ -1,10 +1,11 @@
 
 	PostgreSQL
 	
-	About
+	About (http://www.postgresql.org/about/)
 
 	- PostgreSQL is a powerful, open source object-relational database system.
 	- To date over 15 year of active development
+	- Designed by Michael Stonebraker at the University of California
 	- It runs on all major operating systems
 	- It includes most SQL:2008 data types, including 
 	  INTEGER, NUMERIC, BOOLEAN, CHAR, VARCHAR, DATE, INTERVAL, and TIMESTAMP. 
@@ -69,7 +70,7 @@
 	  powerful database system capable of the enterprise, it is a development platform upon which 
 	  to develop in-house, web, or commercial software products that require a capable RDBMS
    
-	Immunity to over-deployment
+	Immunity to over-deployment (http://www.postgresql.org/about/advantages/)
 	
 	- Over-deployment is what some proprietary database vendors regard as their #1 licence 
 	  compliance problem.  With PostgreSQL, no-one can sue you for breaking licensing agreements, 
@@ -113,5 +114,14 @@
 	  
 	GUI database design
 	- PgAdmin III
+	
+	Who uses PostGreSQL (http://2ndquadrant.com/en/postgresql/who-uses-postgresql/)
+	- Server-based virus scanning services offered by McAfee
+	- Listens to music on LastFM, a long term PostgreSQL user.
+	- Skype uses PostgreSQL to store all Skype chat and call activity
+	- Federal Aviation Authority converted from Oracle to PostgreSQL to track critical information 
+	  about the layout of all airports in the US. (Now a standard)
+	- Fitness Keeper uses PostgreSQL to store all metrics of runners' routes and performances.
+	- Hi5, a social gaming site using PostgreSQL
 	  
 	
