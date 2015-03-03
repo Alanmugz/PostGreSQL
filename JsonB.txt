@@ -1,0 +1,46 @@
+
+	JsonB
+	
+	(https://www.youtube.com/watch?v=6-2tpHLLM1o&list=WL&index=1 5
+	 https://www.youtube.com/watch?v=xrBIOuEG5rU 10
+	 https://www.youtube.com/watch?v=oQ1LSW31Y1A&list=PLWW0CjV-Tafa2jvcjihXwSvZZKsLAsb9Y#t=2492 7
+	
+	- json is stored in its plain text format 9.2
+	  Store unstructured data in a field
+	  Store nested documents and arrays
+	
+	- jsonb is stored in some binary representation 9.4
+	  JsonB stored like key value pairs
+	  Application can still generate json and store it in a jsonB field 
+	  more efficient to parse you jsonb objects
+	  allows you to add indexes
+	  new query operators (breaks up a document into smaller documents of a key and value)
+	  
+	  <> jsonb usually takes more disk space to store than json (sometimes not)
+	  <> jsonb takes more time to build from its input representation than json
+	  <> json operations take significantly more time than jsonb (& parsing also needs to be done each
+	     time you do some operation at a json typed value)
+		 
+	  1. If you only work with the JSON representation in your application, PostgreSQL is only 
+	     used to store & retrieve this representation, you should use json.
+		 if you need to preserve key ordering, whitespace, and duplicate keys, you should use JSON.
+		 
+      2. If you do a lot of operations on the JSON value in PostgreSQL, or use indexing on some 
+	     JSON field, you should use jsonb.
+	  
+	- GIN Index (https://devcenter.heroku.com/articles/postgresql-indexes#expression-indexes)
+	  GIN = Galavinised Inverted Index
+	  
+	  Small for 9.4 takes less disk space
+	  
+	  Great at storing duplicates
+	  
+	  GIN is a normal bTree but heavily optimised to store duplicate values 
+	  
+	  <> Instead of inserting a duplicate keys in to a tree it creates a list of the duplicates 
+	     values on a page if that page fills a posting tree is then created which 
+		 
+	  <> Reindexing will have to be done to guard against index fragmentation if items are being 
+	     deleted from the tables.
+		 
+	  if you need unique indexing use a bTree index
