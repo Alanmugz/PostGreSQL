@@ -7,7 +7,7 @@
 	  can dump data into proprietary formats that nothing else can read, which is fine for backups, 
 	  replication and the like, but no use at all for migrating data from system X to system Y
 	  
-	- ostgreSQL's CSV support is top notch. The COPY TO and COPY FROM commands support the spec 
+	- PostgreSQL's CSV support is top notch. The COPY TO and COPY FROM commands support the spec 
 	  outlined in RFC4180 (which is the closest thing there is to an official CSV standard) as well 
 	  as a multitude of common and not-so-common variants and dialects. These commands are fast 
 	  and robust. When an error occurs, they give helpful error messages. Importantly, they will 
@@ -77,5 +77,86 @@
 	  processing tasks. A data analytics tool without regex support is like a bicycle without a 
 	  saddle – you can still use it, but it's painful.
 
+	  MS SQL Server has LIKE, SUBSTRING, PATINDEX and so on, which are not comparable to proper 
+	  regex support (if you doubt this, try implementing the above examples using them). There 
+	  are third-party regex libraries for MS SQL Server; they're just not as good as PostgreSQL's 
+	  support, and the need to obtain and install them separately adds admin overhead.
 	
+	Types
+	Arrays
 	
+	- PostgreSQL: arrays are supported as a first-class data type, meaning fields in tables, 
+	  variables in PL/PGSQL, parameters to functions and so on can be arrays. Arrays can contain 
+	  any data type you like, including other arrays. This is very, very useful. Here are some of 
+	  the things you can do with arrays:
+
+	  Store the results of function calls with arbitrarily-many return values, such as regex matches
+	  Represent a string as integer word IDs, for use in fast text matching algorithms
+	  Aggregation of multiple data values across groups, for efficient cross-tabulation
+	  Perform row operations using multiple data values without the expense of a join
+	  Accurately and semantically represent array data from other applications in your tool stack
+	  Feed array data to other applications in your tool stack
+	  
+	JSON
+	
+	- PostgreSQL: full support for JSON, including a large set of utility functions for transforming
+	  between JSON types and tables (in both directions), retreiving values from JSON data and 
+	  constructing JSON data. Parsing and stringification are handled by simple casts, which as a 
+	  rule in PostgreSQL are intelligent and robust. The PL/V8 procedural language works as 
+	  seamlessly as you would expect with JSON – in fact, a JSON-type internal state in a custom 
+	  aggregate (see this example) whose transition function is written in PL/V8 provides a 
+	  declarative/imperative best-of-both-worlds so powerful and convenient it feels like cheating.
+
+	  JSON (and its variants, such as JSONB) is of course the de facto standard data transfer 
+	  format on the web and in several other data platforms, such as MongoDB and ElasticSearch, 
+	  and in fact any system with a RESTful interface
+	
+	HSTORE
+	
+	- PostgreSQL: HSTORE is a PostgreSQL extension which implements a fast key-value store as a data
+      type. Like arrays, this is very useful because virtually every high-level programming 
+	  language has such a concept (and virtually every programming language has such a concept 
+	  because it is very useful). JavaScript has objects, PHP has associative arrays, Python has 
+	  dicts, C++ has std::map and std::unordered_map, Go has maps. And so on.
+
+	  In fact, the notion of a key-value store is so important and useful that there exists a whole 
+	  class of NoSQL databases which use it as their main storage paradigm. They're called, uh, 
+	  key-value stores.
+      
+	  There are also some fun unexpected uses of such a data type. A colleague recently asked me if 
+	  there was a good way to deduplicate a text array. Here's what I came up with:
+      
+	  SELECT akeys(hstore(my_array, my_array)) FROM my_table;
+	  
+	  i.e. put the array into both the keys and values of an HSTORE, forcing a dedupe to take place 
+	  (since key values are unique) then retrieve the keys from the HSTORE. There's that PostgreSQL 
+	  versatility again.
+	  
+	Range types
+	
+	- PostgreSQL: range types represent, well, ranges. Every database programmer has seen fields 
+	  called start_date and end_date, and most of them have had to implement logic to detect 
+	  overlaps. Some have even found, the hard way, that joins to ranges using BETWEEN can go 
+	  horribly wrong, for a number of reasons.
+
+      PostgreSQL's approach is to treat time ranges as first-class data types. Not only can you 
+	  put a range of time (or INTs or NUMERICs or whatever) into a single data value, you can use 
+	  a host of built-in operators to manipulate and query ranges safely and quickly. You can even 
+	  apply specially-developed indices to them to massively accelerate queries that use these 
+	  operators. In short, PostgreSQL treats ranges with the importance they deserve and gives 
+	  you the tools to work with them effectively. I'm trying not to make this document a mere 
+	  list of links to the PostgreSQL docs, but just this once, I suggest you go and see for 
+	  yourself.
+      
+      (Oh, and if the pre-defined types don't meet your needs, you can define your own ones. You 
+	  don't have to touch the source code, the database exposes methods to allow you to do this.)
+	  
+	NUMERIC and DECIMAL
+	
+	- PostgreSQL: NUMERIC (and DECIMAL - they're symonyms) is near-as-dammit arbitrary precision: 
+	  it supports 131,072 digits before the decimal point and 16,383 digits after the decimal point. 
+	  If you're running a bank, doing technical computation, landing spaceships on comets or 
+	  simply doing something where you cannot tolerate rounding errors, you're covered.
+
+      MS SQL Server: NUMERIC (and DECIMAL - they're symonyms) supports a maximum of 38 decimal 
+	  places of precision in total.

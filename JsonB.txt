@@ -10,6 +10,7 @@
 	  Store nested documents and arrays
 	
 	- jsonb is stored in some binary representation 9.4
+	  Jsonb lives within PostGreSQL 
 	  JsonB stored like key value pairs
 	  Application can still generate json and store it in a jsonB field 
 	  more efficient to parse you jsonb objects
