@@ -44,7 +44,9 @@
 	  via public sponsorship.
 	
 	Replication Streaming
-	- Capability to send changes to the slaves and keep them current. Using WAL files
+	- Capability to send changes to the slaves and keep them current. Using WAL files to write 
+	  transaction to the slave nodes asynchronously and asynchronously. With larger systems a WAL 
+	  archive is required between the master and slaves.
 	
 	Write-Ahead Logging
 	- Write-Ahead Logging (WAL) is a standard method for ensuring data integrity. Briefly, 
@@ -56,4 +58,9 @@
 	  have not been applied to the data pages can be redone from the log records. 
 	  (This is roll-forward recovery, also known as REDO.)
 	
+	
+	PgPooling II
+	- This is a service which the end user connects to and queries to as if it was a database. 
+	  Pgppooling then performs load balancing on the queries and decides on which database 
+	  to send the query to. Which database is connected to is decided randomly.
 	
