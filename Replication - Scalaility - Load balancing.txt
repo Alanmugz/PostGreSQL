@@ -1,0 +1,59 @@
+
+	Replication, Availability and Scalability
+	(http://www.themagicnumber.es/replication-in-postgresql-i?lang=en
+	 http://usamadar.com/2012/07/17/postgresql-replication-options/
+	 
+	Why Replication
+	- Failover, load balancing
+	 
+	Replication Warm Stand by
+	- Replication is a technique used to store objects of one database in multiple locations. 
+	  This allows us to have an exact or partial replica of the database that can be used as 
+	  an emergency backup and also to perform some queries and reduce the load on the main server.
+	  <> Cannot read from slave node
+	  
+	Warm StandBy/Log Shipping
+	- This solution came natively with PostgreSQL from the 8.3 version. It is based in the 
+	  periodical shipping of WAL files to the secondary server. The WAL files or Write Ahead 
+	  Logging are similar to the Redo Log files of other DBA. Every time that a transaction 
+	  is committed in the database, it is also written to a file. That way, if there is a 
+	  mishap with the database it can be restored using the WAL files.
+	  
+	Advantages
+	- Easy to implement, modifying just 6 lines in the configuration files the system ready.
+	  All the actions that we made on the main server, including DLL sentences, will be replicated 
+	  to the secondary (sometimes this is a disadvantage, for example, if you only want to 
+	  replicate one of the databases in a server or if you want to have different indexes).
+	  
+	Disadvantages
+	- The Warm StandBy Server cannot be used to ease the load on the main one because it is not 
+	  possible to run queries on it.
+	  
+      You can specify the WAL files shipping period or ‘timeout ‘, but if this is really low, you 
+	  can overload the server or the network. Depending of the level of transactions that you have, 
+	  it is possible that you can lose some of them in the event of an emergency. Both of the 
+	  machines have to have the same architecture (32 or 64 bits) and the same PostgreSQL version.
+	  
+	Replication Hot Standby
+	- Hot Standby is the name for the capability to run queries on a database that is currently 
+	  performing archive recovery. Log Shipping replication allows you to create one or more 
+	  standby nodes that are replicas of the primary node (or master node). Standby nodes can 
+	  then be used for read-only query access.
+	  
+	  Hot Standby was developed for inclusion in PostgreSQL 9.0 by Simon Riggs of 2ndQuadrant 
+	  via public sponsorship.
+	
+	Replication Streaming
+	- Capability to send changes to the slaves and keep them current. Using WAL files
+	
+	Write-Ahead Logging
+	- Write-Ahead Logging (WAL) is a standard method for ensuring data integrity. Briefly, 
+	  WAL's central concept is that changes to data files (where tables and indexes reside) must 
+	  be written only after those changes have been logged, that is, after log records describing 
+	  the changes have been flushed to permanent storage. If we follow this procedure, we do not 
+	  need to flush data pages to disk on every transaction commit, because we know that in the 
+	  event of a crash we will be able to recover the database using the log: any changes that 
+	  have not been applied to the data pages can be redone from the log records. 
+	  (This is roll-forward recovery, also known as REDO.)
+	
+	
