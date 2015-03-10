@@ -1,0 +1,8 @@
+
+	PostgreSQL Limitations
+	- Replication is quite difficult to implement but recent improvements have helped with this.
+	
+	  For simple read-heavy operations, PostgreSQL can be an over-kill and might 
+	  appear less performant than the counterparts, such as MySQL.
+	  
+	  Does not work particularly well on windows. 

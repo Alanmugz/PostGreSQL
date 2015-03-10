@@ -2,9 +2,10 @@
 	Replication, Availability and Scalability
 	(http://www.themagicnumber.es/replication-in-postgresql-i?lang=en
 	 http://usamadar.com/2012/07/17/postgresql-replication-options/
+	 http://blog.codepath.com/2012/02/13/adventures-in-scaling-part-3-postgresql-streaming-replication/
 	 
 	Why Replication
-	- Failover, load balancing
+	- Failover, load balancing, Scalability 
 	 
 	Replication Warm Stand by
 	- Replication is a technique used to store objects of one database in multiple locations. 
@@ -45,7 +46,7 @@
 	
 	Replication Streaming
 	- Capability to send changes to the slaves and keep them current. Using WAL files to write 
-	  transaction to the slave nodes asynchronously and asynchronously. With larger systems a WAL 
+	  transaction to the slave nodes asynchronously and synchronously. With larger systems a WAL 
 	  archive is required between the master and slaves.
 	
 	Write-Ahead Logging
@@ -57,7 +58,6 @@
 	  event of a crash we will be able to recover the database using the log: any changes that 
 	  have not been applied to the data pages can be redone from the log records. 
 	  (This is roll-forward recovery, also known as REDO.)
-	
 	
 	PgPooling II
 	- This is a service which the end user connects to and queries to as if it was a database. 
