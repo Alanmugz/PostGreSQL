@@ -81,6 +81,11 @@
 	  regex support (if you doubt this, try implementing the above examples using them). There 
 	  are third-party regex libraries for MS SQL Server; they're just not as good as PostgreSQL's 
 	  support, and the need to obtain and install them separately adds admin overhead.
+	  
+	Table Inheritance
+	
+	- Inheritance is a concept from object-oriented databases. It opens up interesting new 
+	  possibilities of database design.
 	
 	Types
 	Arrays
