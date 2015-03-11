@@ -30,7 +30,7 @@
 	  
 	- It has full support for subqueries (including subselects in the FROM clause)
 	
-	- Data integrity features include (compound) primary keys, foreign keys with restricting and 
+	- Data integrity features include (compounDatad) primary keys, foreign keys with restricting and 
 	  cascading updates/deletes, check constraints, unique constraints, and not null constraints.
 	  
 	- It also has a host of extensions and advanced features. Among the conveniences are 

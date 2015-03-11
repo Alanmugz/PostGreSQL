@@ -1,4 +1,6 @@
 
+--JsonB Example Queries
+
 SELECT * 
 FROM   test 
 WHERE  json ? 'friends' -> 2;
@@ -152,5 +154,74 @@ drop index idx
 CREATE INDEX idx ON test USING gin ((json -> 'matrix'));
 
 
+
+-- Inheritance
+
+CREATE TABLE cities (
+  name       text,
+  population numeric
+);
+
+CREATE TABLE capitals (
+  country   text
+) INHERITS (cities);
+
+INSERT INTO capitals(country, name, population)
+VALUES('Ireland', 'Dublin', 1500000);
+
+INSERT INTO cities(name, population)
+VALUES('Cork', 800000);
+
+SELECT * FROM capitals;
+SELECT * FROM cities;
+
+SELECT * FROM only cities
+WHERE "population" > 8000;
+
+SELECT * FROM only capitals
+WHERE "population" > 8000;
+
+-- Working with Arrays
+
+CREATE TABLE time (name text,stage_time decimal[][]);
+INSERT INTO time VALUES ('Kris Meeke', '{{236.3, 10.0}, {845.9, 15.0}, {236.3, 0.0}, {845.9, 15.0}}');
+
+UPDATE time SET stage_time[5][1] = 256.0;
+UPDATE time SET stage_time[5][2] = 30.0;
+
+update time
+set stage_time = stage_time || '{236.3, 10.0}';
+
+SELECT (stage_time[1:5]) AS s FROM time WHERE name = 'Kris Meeke';
+
+SELECT stage_time[1][2] FROM time;
+
+CREATE OR REPLACE FUNCTION stage() RETURNS integer AS '
+    SELECT 7 AS result;
+' LANGUAGE SQL;
+
+SELECT name, stage_time[stage()][1] AS Stage_Time, stage_time[stage()][2] AS Penalties, (SELECT SUM(s) FROM UNNEST(stage_time[1:stage()]) s) as Total from time;
+
+CREATE OR REPLACE FUNCTION difference (finishTime timestamp, startTime timestamp, stage numeric)
+RETURNS DECIMAL AS $total$
+DECLARE
+	total decimal;
+BEGIN
+   SELECT ((EXTRACT (epoch from (finishTime - startTime))))::DECIMAL INTO total;
+
+   UPDATE time
+   SET stage_time = stage_time || '{0.0, 0.0}';
+
+   UPDATE time SET stage_time[stage][1] = 256.0;
+   UPDATE time SET stage_time[stage][2] = 0.0;
+   
+   RETURN total;
+END;
+$total$ 
+LANGUAGE plpgsql;
+
+SELECT difference('2012-01-01 18:59:14.7', '2012-01-01 18:25:00.0', 7);
+
+SELECT ((EXTRACT (epoch from ('2012-01-01 18:59:14.7'::TIMESTAMP - '2012-01-01 18:25:00.0'::TIMESTAMP))))::DECIMAL AS Stage_Time
 
 
